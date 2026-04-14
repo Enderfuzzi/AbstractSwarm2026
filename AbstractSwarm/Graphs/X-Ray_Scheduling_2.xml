@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "148" name = "XRay" x = "5" y = "13" width = "22" height = "14">
+<agentType id = "149" name = "Patient" x = "9" y = "2" count = "20" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "1"/>
+<time value = "5"/>
+<speed value = "1"/>
+</agentType>
+<stationType id = "150" name = "XRay1" x = "3" y = "8" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "0" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "151" name = "XRay2" x = "9" y = "8" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "127" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "152" name = "XRay3" x = "15" y = "8" count = "1" colorRed = "85" colorGreen = "255" colorBlue = "127" interface = "no">
+<space value = "1"/>
+</stationType>
+</perspective>
+<placeEdge id = "153" connectedIdRef1 = "150" connectedIdRef2 = "151" value = "2" directed = "no"/>
+<placeEdge id = "154" connectedIdRef1 = "151" connectedIdRef2 = "152" value = "2" directed = "no"/>
+<visitEdge id = "155" connectedIdRef1 = "149" connectedIdRef2 = "151" bold = "no"/>
+<visitEdge id = "156" connectedIdRef1 = "149" connectedIdRef2 = "152" bold = "no"/>
+<visitEdge id = "157" connectedIdRef1 = "149" connectedIdRef2 = "150" bold = "yes"/>
+</logisticsGraph>

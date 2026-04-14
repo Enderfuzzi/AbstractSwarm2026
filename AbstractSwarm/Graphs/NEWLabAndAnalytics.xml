@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "36" name = "Lab" x = "29" y = "8" width = "11" height = "12">
+<agentType id = "37" name = "LabWorker1" x = "1" y = "1" count = "5" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<necessity value = "1"/>
+<size value = "1"/>
+</agentType>
+<agentType id = "38" name = "LabWorker2" x = "1" y = "8" count = "5" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<necessity value = "1"/>
+<size value = "1"/>
+</agentType>
+<stationType id = "40" name = "Workstation1" x = "7" y = "1" count = "1" colorRed = "255" colorGreen = "0" colorBlue = "0" interface = "no">
+<time value = "1"/>
+</stationType>
+<stationType id = "41" name = "Workstation2" x = "7" y = "8" count = "1" colorRed = "255" colorGreen = "170" colorBlue = "255" interface = "no">
+<time value = "1"/>
+</stationType>
+</perspective>
+<perspective id = "61" name = "ReagentFreezer" x = "42" y = "8" width = "11" height = "12">
+<agentType id = "62" name = "Reagent" x = "7" y = "4" count = "1" colorRed = "170" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "10"/>
+<time value = "1"/>
+</agentType>
+<stationType id = "64" name = "Workstation1" x = "1" y = "1" count = "1" colorRed = "255" colorGreen = "0" colorBlue = "0" interface = "no">
+<time value = "1"/>
+</stationType>
+<stationType id = "65" name = "Workstation2" x = "1" y = "8" count = "1" colorRed = "255" colorGreen = "170" colorBlue = "255" interface = "no">
+<time value = "1"/>
+</stationType>
+</perspective>
+<perspective id = "83" name = "AnaylticsLab" x = "17" y = "8" width = "10" height = "12">
+<stationType id = "86" name = "NewDevice" x = "1" y = "8" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "127" interface = "no">
+<time value = "2"/>
+</stationType>
+<stationType id = "87" name = "OldDevice" x = "1" y = "1" count = "1" colorRed = "240" colorGreen = "240" colorBlue = "0" interface = "no">
+<time value = "5"/>
+</stationType>
+<agentType id = "92" name = "AnalyticsWorker" x = "6" y = "4" count = "1" colorRed = "255" colorGreen = "170" colorBlue = "0" interface = "no">
+<frequency value = "10"/>
+</agentType>
+</perspective>
+<timeEdge id = "67" connectedIdRef1 = "41" connectedIdRef2 = "65" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<placeEdge id = "80" connectedIdRef1 = "64" connectedIdRef2 = "65" value = "0" directed = "no"/>
+<timeEdge id = "110" connectedIdRef1 = "37" connectedIdRef2 = "92" value = "2" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<placeEdge id = "113" connectedIdRef1 = "87" connectedIdRef2 = "86" value = "0" directed = "no"/>
+<timeEdge id = "115" connectedIdRef1 = "38" connectedIdRef2 = "92" value = "4" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "120" connectedIdRef1 = "64" connectedIdRef2 = "40" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<visitEdge id = "127" connectedIdRef1 = "62" connectedIdRef2 = "64" bold = "yes"/>
+<visitEdge id = "129" connectedIdRef1 = "62" connectedIdRef2 = "65" bold = "no"/>
+<visitEdge id = "130" connectedIdRef1 = "92" connectedIdRef2 = "87" bold = "yes"/>
+<visitEdge id = "132" connectedIdRef1 = "92" connectedIdRef2 = "86" bold = "no"/>
+<visitEdge id = "133" connectedIdRef1 = "37" connectedIdRef2 = "40" bold = "yes"/>
+<visitEdge id = "134" connectedIdRef1 = "38" connectedIdRef2 = "41" bold = "yes"/>
+</logisticsGraph>

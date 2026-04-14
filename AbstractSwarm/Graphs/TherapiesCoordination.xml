@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "34" name = "Patients" x = "39" y = "9" width = "20" height = "16">
+<stationType id = "35" name = "Physio" x = "16" y = "11" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "0" interface = "no">
+<necessity value = "1"/>
+<time value = "12"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "36" name = "PainTherapy" x = "16" y = "6" count = "1" colorRed = "255" colorGreen = "0" colorBlue = "127" interface = "no">
+<necessity value = "1"/>
+<time value = "12"/>
+<space value = "3"/>
+</stationType>
+<stationType id = "37" name = "X-ray" x = "16" y = "1" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "127" interface = "no">
+<necessity value = "1"/>
+<time value = "10"/>
+<space value = "1"/>
+</stationType>
+<agentType id = "38" name = "Patient2" x = "2" y = "6" count = "5" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<priority value = "1"/>
+<size value = "1"/>
+<speed value = "1"/>
+</agentType>
+<agentType id = "39" name = "Patient1" x = "2" y = "12" count = "5" colorRed = "0" colorGreen = "255" colorBlue = "127" interface = "no">
+<size value = "1"/>
+<speed value = "1"/>
+</agentType>
+</perspective>
+<perspective id = "65" name = "Docs" x = "23" y = "10" width = "12" height = "15">
+<agentType id = "67" name = "Doc" x = "1" y = "6" count = "8" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<speed value = "1"/>
+</agentType>
+<stationType id = "126" name = "Patient1" x = "7" y = "10" count = "5" colorRed = "0" colorGreen = "255" colorBlue = "127" interface = "no">
+<frequency value = "1"/>
+<time value = "12"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "131" name = "Supervising" x = "7" y = "1" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "127" interface = "no">
+<time value = "10"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "148" name = "Patient2" x = "7" y = "5" count = "5" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<frequency value = "1"/>
+<time value = "12"/>
+<space value = "1"/>
+</stationType>
+</perspective>
+<perspective id = "161" name = "Nurses" x = "31" y = "28" width = "11" height = "5">
+<stationType id = "162" name = "Standby" x = "7" y = "1" count = "1" colorRed = "255" colorGreen = "170" colorBlue = "255" interface = "no">
+<time value = "12"/>
+<space value = "1"/>
+</stationType>
+<agentType id = "163" name = "Nurse" x = "1" y = "2" count = "2" colorRed = "0" colorGreen = "255" colorBlue = "255" interface = "no">
+</agentType>
+</perspective>
+<visitEdge id = "45" connectedIdRef1 = "38" connectedIdRef2 = "37" bold = "no"/>
+<visitEdge id = "46" connectedIdRef1 = "39" connectedIdRef2 = "35" bold = "no"/>
+<visitEdge id = "47" connectedIdRef1 = "39" connectedIdRef2 = "36" bold = "no"/>
+<visitEdge id = "61" connectedIdRef1 = "38" connectedIdRef2 = "35" bold = "no"/>
+<visitEdge id = "128" connectedIdRef1 = "67" connectedIdRef2 = "126" bold = "no"/>
+<visitEdge id = "137" connectedIdRef1 = "67" connectedIdRef2 = "131" bold = "no"/>
+<timeEdge id = "145" connectedIdRef1 = "126" connectedIdRef2 = "39" value = "12" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "146" connectedIdRef1 = "148" connectedIdRef2 = "38" value = "12" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<visitEdge id = "149" connectedIdRef1 = "67" connectedIdRef2 = "148" bold = "no"/>
+<visitEdge id = "153" connectedIdRef1 = "39" connectedIdRef2 = "37" bold = "no"/>
+<visitEdge id = "155" connectedIdRef1 = "36" connectedIdRef2 = "38" bold = "no"/>
+<placeEdge id = "157" connectedIdRef1 = "37" connectedIdRef2 = "36" value = "20" directed = "no"/>
+<placeEdge id = "158" connectedIdRef1 = "36" connectedIdRef2 = "35" value = "20" directed = "no"/>
+<placeEdge id = "159" connectedIdRef1 = "131" connectedIdRef2 = "148" value = "5" directed = "no"/>
+<placeEdge id = "160" connectedIdRef1 = "148" connectedIdRef2 = "126" value = "2" directed = "no"/>
+<visitEdge id = "167" connectedIdRef1 = "162" connectedIdRef2 = "163" bold = "no"/>
+<timeEdge id = "171" connectedIdRef1 = "35" connectedIdRef2 = "162" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "172" connectedIdRef1 = "131" connectedIdRef2 = "37" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "173" connectedIdRef1 = "148" connectedIdRef2 = "162" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "174" connectedIdRef1 = "126" connectedIdRef2 = "162" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+</logisticsGraph>

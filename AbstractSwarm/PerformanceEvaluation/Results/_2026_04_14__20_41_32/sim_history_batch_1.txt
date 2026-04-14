@@ -1,0 +1,6 @@
+AgentDirPlaceEdgesReactiveMaxFreeSpace,MultiAgentShortestPaths.xml,10,2
+AgentDirPlaceEdgesReactiveMaxFreeSpace,PatientsCoordination.xml,10,2
+AgentDirPlaceEdgesReactiveMaxFreeSpace,Perspectives.lg.xml,10,2
+AgentDirPlaceEdgesReactiveMaxFreeSpace,ProductionSimulation.lg.xml,10,2
+AgentDirPlaceEdgesReactiveMaxFreeSpace,SchoolTimetabling.lg.xml,10,2
+AgentDirPlaceEdgesReactiveMaxFreeSpace,TherapiesCoordination.xml,10,2

@@ -1,0 +1,27 @@
+COMPILING AND RUNNING AN AGENT IMPLEMENTATION IN SCALA
+
+1.) In order to compile your Scala agent, setup the following layout in your
+    Simple Build Tool (sbt):
+	
+    src/
+       main/
+          java/
+             ModelDataTypes.java
+          scala/
+             SmartAgent.scala
+    target/
+
+    Use the "ModelDataTypes.java" and "SmartAgent.scala" from the "AgentScala" 
+	folder of AbstractSwarm and start implementing your Scala-agent in 
+	"src/main/scala/SmartAgent.scala".			 
+    
+	After implementing your Scala code, just run the sbt task "package" to
+	create a corresponding .jar file.
+		
+2.) Add to the "AgentScala" folder of AbstractSwarm the following two files:
+    - The SmartAgent.jar-file resulting from your "package" task (can be found
+      in the "target" folder)
+    - scala-library.jar (part of the Scala distribution)
+
+3.) Start AbstractSwarm, open a scenario graph and select the "AgentScala"
+    from "Agents" menu. Run the scenario.

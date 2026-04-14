@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "0" name = "Docs" x = "17" y = "16" width = "13" height = "11">
+<agentType id = "1" name = "Doc" x = "5" y = "7" count = "4" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "5"/>
+<time value = "1"/>
+</agentType>
+<stationType id = "2" name = "NormalRequest" x = "1" y = "1" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "0" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "3" name = "UrgentRequest" x = "9" y = "1" count = "1" colorRed = "255" colorGreen = "85" colorBlue = "127" interface = "no">
+<space value = "1"/>
+</stationType>
+</perspective>
+<perspective id = "11" name = "Transportation" x = "17" y = "2" width = "13" height = "11">
+<stationType id = "50" name = "PatientTransportation" x = "5" y = "1" count = "1" colorRed = "170" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "20"/>
+</stationType>
+<agentType id = "51" name = "NormalTransporter" x = "1" y = "7" count = "4" colorRed = "255" colorGreen = "255" colorBlue = "0" interface = "no">
+<time value = "5"/>
+</agentType>
+<agentType id = "52" name = "UrgentTransporter" x = "9" y = "7" count = "2" colorRed = "255" colorGreen = "85" colorBlue = "127" interface = "no">
+<time value = "2"/>
+</agentType>
+</perspective>
+<visitEdge id = "5" connectedIdRef1 = "1" connectedIdRef2 = "2" bold = "yes"/>
+<visitEdge id = "6" connectedIdRef1 = "1" connectedIdRef2 = "3" bold = "no"/>
+<placeEdge id = "9" connectedIdRef1 = "2" connectedIdRef2 = "3" value = "0" directed = "no"/>
+<visitEdge id = "54" connectedIdRef1 = "51" connectedIdRef2 = "50" bold = "yes"/>
+<visitEdge id = "55" connectedIdRef1 = "52" connectedIdRef2 = "50" bold = "yes"/>
+<timeEdge id = "60" connectedIdRef1 = "51" connectedIdRef2 = "2" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "61" connectedIdRef1 = "52" connectedIdRef2 = "3" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+</logisticsGraph>

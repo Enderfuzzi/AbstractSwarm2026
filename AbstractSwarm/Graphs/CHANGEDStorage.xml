@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "0" name = "Storehouse" x = "61" y = "59" width = "14" height = "17">
+<agentType id = "1" name = "ProductAtEntrance1" x = "10" y = "3" count = "5" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "1"/>
+<time value = "1"/>
+<size value = "1"/>
+<speed value = "1"/>
+</agentType>
+<stationType id = "2" name = "Shelf1" x = "2" y = "1" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "127" interface = "no">
+<space value = "10"/>
+</stationType>
+<stationType id = "3" name = "Shelf2" x = "2" y = "7" count = "1" colorRed = "255" colorGreen = "170" colorBlue = "127" interface = "no">
+<space value = "10"/>
+</stationType>
+<stationType id = "7" name = "Shelf3" x = "2" y = "13" count = "1" colorRed = "85" colorGreen = "170" colorBlue = "255" interface = "no">
+<space value = "10"/>
+</stationType>
+<agentType id = "10" name = "ProductAtEntrance2" x = "10" y = "9" count = "5" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "1"/>
+<time value = "1"/>
+<size value = "1"/>
+<speed value = "1"/>
+</agentType>
+</perspective>
+<placeEdge id = "4" connectedIdRef1 = "2" connectedIdRef2 = "3" value = "5" directed = "no"/>
+<visitEdge id = "5" connectedIdRef1 = "1" connectedIdRef2 = "2" bold = "yes"/>
+<visitEdge id = "6" connectedIdRef1 = "1" connectedIdRef2 = "3" bold = "no"/>
+<placeEdge id = "8" connectedIdRef1 = "3" connectedIdRef2 = "7" value = "5" directed = "no"/>
+<visitEdge id = "9" connectedIdRef1 = "1" connectedIdRef2 = "7" bold = "no"/>
+<visitEdge id = "11" connectedIdRef1 = "10" connectedIdRef2 = "7" bold = "yes"/>
+<visitEdge id = "12" connectedIdRef1 = "10" connectedIdRef2 = "3" bold = "no"/>
+<visitEdge id = "13" connectedIdRef1 = "10" connectedIdRef2 = "2" bold = "no"/>
+</logisticsGraph>

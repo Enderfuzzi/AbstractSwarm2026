@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "0" name = "SlowRoad" x = "72" y = "62" width = "12" height = "15">
+<stationType id = "1" name = "SlowRoadCell1" x = "2" y = "1" count = "1" colorRed = "149" colorGreen = "151" colorBlue = "255" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "2" name = "SlowRoadCell2" x = "2" y = "6" count = "1" colorRed = "192" colorGreen = "190" colorBlue = "255" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "3" name = "SlowRoadCell3" x = "2" y = "11" count = "1" colorRed = "234" colorGreen = "235" colorBlue = "255" interface = "no">
+<space value = "1"/>
+</stationType>
+<agentType id = "6" name = "SlowTruck" x = "8" y = "6" count = "12" colorRed = "194" colorGreen = "192" colorBlue = "255" interface = "no">
+<necessity value = "1"/>
+<time value = "5"/>
+</agentType>
+</perspective>
+<perspective id = "10" name = "FastRoad" x = "51" y = "75" width = "16" height = "11">
+<agentType id = "11" name = "FastTruck" x = "7" y = "7" count = "12" colorRed = "253" colorGreen = "255" colorBlue = "110" interface = "no">
+<necessity value = "1"/>
+<time value = "1"/>
+</agentType>
+<stationType id = "12" name = "FastRoadCell1" x = "2" y = "1" count = "1" colorRed = "255" colorGreen = "226" colorBlue = "0" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "13" name = "FastRoadCell2" x = "7" y = "1" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "96" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "14" name = "FastRoadCell3" x = "12" y = "1" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "228" interface = "no">
+<space value = "1"/>
+</stationType>
+</perspective>
+<perspective id = "20" name = "Crossroads" x = "56" y = "63" width = "14" height = "10">
+<stationType id = "28" name = "GreenLightFastRoad" x = "2" y = "5" count = "1" colorRed = "57" colorGreen = "255" colorBlue = "73" interface = "no">
+<time value = "1"/>
+</stationType>
+<stationType id = "29" name = "GreenLightSlowRoad" x = "10" y = "5" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "0" interface = "no">
+<time value = "5"/>
+</stationType>
+<agentType id = "30" name = "TrafficLights" x = "6" y = "1" count = "1" colorRed = "206" colorGreen = "255" colorBlue = "210" interface = "no">
+<necessity value = "12"/>
+</agentType>
+</perspective>
+<placeEdge id = "4" connectedIdRef1 = "1" connectedIdRef2 = "2" value = "0" directed = "yes"/>
+<placeEdge id = "5" connectedIdRef1 = "2" connectedIdRef2 = "3" value = "0" directed = "yes"/>
+<visitEdge id = "7" connectedIdRef1 = "6" connectedIdRef2 = "1" bold = "yes"/>
+<visitEdge id = "8" connectedIdRef1 = "6" connectedIdRef2 = "2" bold = "no"/>
+<visitEdge id = "9" connectedIdRef1 = "6" connectedIdRef2 = "3" bold = "no"/>
+<placeEdge id = "15" connectedIdRef1 = "12" connectedIdRef2 = "13" value = "0" directed = "yes"/>
+<placeEdge id = "16" connectedIdRef1 = "13" connectedIdRef2 = "14" value = "0" directed = "yes"/>
+<visitEdge id = "17" connectedIdRef1 = "11" connectedIdRef2 = "12" bold = "yes"/>
+<visitEdge id = "18" connectedIdRef1 = "11" connectedIdRef2 = "13" bold = "no"/>
+<visitEdge id = "19" connectedIdRef1 = "11" connectedIdRef2 = "14" bold = "no"/>
+<timeEdge id = "26" connectedIdRef1 = "29" connectedIdRef2 = "2" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "27" connectedIdRef1 = "28" connectedIdRef2 = "13" value = "0" directed = "no" andConnected1 = "no" andConnected2 = "no"/>
+<visitEdge id = "31" connectedIdRef1 = "30" connectedIdRef2 = "28" bold = "no"/>
+<visitEdge id = "32" connectedIdRef1 = "30" connectedIdRef2 = "29" bold = "no"/>
+<placeEdge id = "33" connectedIdRef1 = "28" connectedIdRef2 = "29" value = "0" directed = "no"/>
+</logisticsGraph>

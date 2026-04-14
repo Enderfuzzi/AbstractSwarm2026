@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "40" name = "XRay" x = "9" y = "9" width = "12" height = "5">
+<agentType id = "42" name = "Patient" x = "1" y = "1" count = "30" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "1"/>
+<time value = "5"/>
+</agentType>
+<stationType id = "43" name = "XRay" x = "8" y = "1" count = "4" colorRed = "85" colorGreen = "170" colorBlue = "127" interface = "no">
+<space value = "1"/>
+</stationType>
+</perspective>
+<visitEdge id = "47" connectedIdRef1 = "42" connectedIdRef2 = "43" bold = "no"/>
+</logisticsGraph>

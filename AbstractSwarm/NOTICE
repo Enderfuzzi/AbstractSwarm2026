@@ -1,0 +1,22 @@
+AbstractSwarm is a graphical multi-agent modeling and simulation environment,
+especially suitable for applying AI to logistics.
+It is currently further developed as an open source project under the GPL
+license (Version 3) and it is planned to be used for optimizing hospital
+processes.
+
+AbstractSwarm is free software and was created by making use of other free
+software with the following licenses and websites:
+
+- Qt 5.12.4 (License: GPLv3/LGPLv3; https://www.qt.io) 
+- Xerces-C++ 3.2.2 (Apache License 2.0; https://xerces.apache.org/xerces-c)
+- MinGW (License: http://mingw.org/license; http://mingw.org/)
+
+It is tried to satisfy the terms of all licenses by providing a copy of the
+respective license files and the source codes involved in the AbstractSwarm
+folder, where required.
+If anything is missing or wrong, or in case you need access to further source
+code (e.g., the complete Qt sources of the respective version, instead of the
+used submodules only), please refer to the respective websites or contact us:
+
+Daan Apeldoorn:   daan.apeldoorn@uni-mainz.de
+Lars Hadidi:      lahadidi@uni-mainz.de

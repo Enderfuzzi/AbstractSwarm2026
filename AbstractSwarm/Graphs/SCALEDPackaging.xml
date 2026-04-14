@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "0" name = "Packaging" x = "56" y = "53" width = "14" height = "14">
+<agentType id = "1" name = "Product1" x = "1" y = "1" count = "40" colorRed = "207" colorGreen = "255" colorBlue = "230" interface = "no">
+<frequency value = "1"/>
+<time value = "1"/>
+<size value = "5"/>
+</agentType>
+<agentType id = "2" name = "Product2" x = "1" y = "9" count = "40" colorRed = "254" colorGreen = "255" colorBlue = "220" interface = "no">
+<frequency value = "1"/>
+<time value = "1"/>
+<size value = "4"/>
+</agentType>
+<stationType id = "3" name = "Package1" x = "10" y = "2" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "0" interface = "no">
+<space value = "160"/>
+</stationType>
+<stationType id = "4" name = "Package2" x = "10" y = "10" count = "1" colorRed = "0" colorGreen = "255" colorBlue = "127" interface = "no">
+<space value = "200"/>
+</stationType>
+</perspective>
+<visitEdge id = "5" connectedIdRef1 = "1" connectedIdRef2 = "4" bold = "no"/>
+<visitEdge id = "6" connectedIdRef1 = "1" connectedIdRef2 = "3" bold = "yes"/>
+<visitEdge id = "7" connectedIdRef1 = "2" connectedIdRef2 = "3" bold = "no"/>
+<visitEdge id = "8" connectedIdRef1 = "2" connectedIdRef2 = "4" bold = "yes"/>
+<placeEdge id = "9" connectedIdRef1 = "3" connectedIdRef2 = "4" value = "0" directed = "no"/>
+</logisticsGraph>

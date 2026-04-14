@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "38" name = "Multi-Agent Shortest Paths" x = "12" y = "1" width = "28" height = "22">
+<stationType id = "39" name = "Location3" x = "8" y = "18" count = "1" colorRed = "215" colorGreen = "215" colorBlue = "215" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "40" name = "Location4" x = "16" y = "18" count = "1" colorRed = "184" colorGreen = "184" colorBlue = "184" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "41" name = "Location5" x = "24" y = "18" count = "1" colorRed = "159" colorGreen = "159" colorBlue = "159" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "42" name = "Location1" x = "8" y = "8" count = "1" colorRed = "250" colorGreen = "250" colorBlue = "250" interface = "no">
+<space value = "1"/>
+</stationType>
+<stationType id = "43" name = "Location2" x = "16" y = "8" count = "1" colorRed = "233" colorGreen = "233" colorBlue = "233" interface = "no">
+<space value = "1"/>
+</stationType>
+<agentType id = "44" name = "ModerateAgent" x = "24" y = "2" count = "10" colorRed = "255" colorGreen = "240" colorBlue = "73" interface = "no">
+<necessity value = "1"/>
+<time value = "1"/>
+<speed value = "2"/>
+</agentType>
+<agentType id = "56" name = "SlowAgent" x = "1" y = "11" count = "10" colorRed = "111" colorGreen = "186" colorBlue = "255" interface = "no">
+<necessity value = "1"/>
+<time value = "1"/>
+<speed value = "1"/>
+</agentType>
+<agentType id = "62" name = "FastAgent" x = "5" y = "1" count = "10" colorRed = "255" colorGreen = "116" colorBlue = "88" interface = "no">
+<necessity value = "1"/>
+<time value = "1"/>
+<speed value = "3"/>
+</agentType>
+</perspective>
+<visitEdge id = "45" connectedIdRef1 = "44" connectedIdRef2 = "42" bold = "no"/>
+<visitEdge id = "46" connectedIdRef1 = "44" connectedIdRef2 = "43" bold = "no"/>
+<visitEdge id = "47" connectedIdRef1 = "44" connectedIdRef2 = "39" bold = "no"/>
+<visitEdge id = "48" connectedIdRef1 = "44" connectedIdRef2 = "40" bold = "no"/>
+<visitEdge id = "49" connectedIdRef1 = "44" connectedIdRef2 = "41" bold = "no"/>
+<placeEdge id = "50" connectedIdRef1 = "43" connectedIdRef2 = "41" value = "30" directed = "no"/>
+<placeEdge id = "51" connectedIdRef1 = "43" connectedIdRef2 = "40" value = "70" directed = "no"/>
+<placeEdge id = "52" connectedIdRef1 = "41" connectedIdRef2 = "40" value = "40" directed = "no"/>
+<placeEdge id = "53" connectedIdRef1 = "40" connectedIdRef2 = "39" value = "120" directed = "no"/>
+<placeEdge id = "54" connectedIdRef1 = "39" connectedIdRef2 = "42" value = "30" directed = "no"/>
+<placeEdge id = "55" connectedIdRef1 = "42" connectedIdRef2 = "43" value = "20" directed = "no"/>
+<visitEdge id = "57" connectedIdRef1 = "56" connectedIdRef2 = "42" bold = "no"/>
+<visitEdge id = "58" connectedIdRef1 = "56" connectedIdRef2 = "43" bold = "no"/>
+<visitEdge id = "59" connectedIdRef1 = "56" connectedIdRef2 = "39" bold = "no"/>
+<visitEdge id = "60" connectedIdRef1 = "56" connectedIdRef2 = "40" bold = "no"/>
+<visitEdge id = "61" connectedIdRef1 = "56" connectedIdRef2 = "41" bold = "no"/>
+<visitEdge id = "63" connectedIdRef1 = "62" connectedIdRef2 = "39" bold = "no"/>
+<visitEdge id = "64" connectedIdRef1 = "62" connectedIdRef2 = "42" bold = "no"/>
+<visitEdge id = "65" connectedIdRef1 = "62" connectedIdRef2 = "43" bold = "no"/>
+<visitEdge id = "66" connectedIdRef1 = "62" connectedIdRef2 = "40" bold = "no"/>
+<visitEdge id = "67" connectedIdRef1 = "62" connectedIdRef2 = "41" bold = "no"/>
+</logisticsGraph>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "104" name = "Treatments" x = "6" y = "8" width = "21" height = "18">
+<agentType id = "105" name = "Patient" x = "16" y = "1" count = "10" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<necessity value = "1"/>
+<size value = "1"/>
+<speed value = "1"/>
+</agentType>
+<stationType id = "106" name = "Treatment1" x = "8" y = "3" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "0" interface = "no">
+<time value = "5"/>
+<space value = "2"/>
+</stationType>
+<stationType id = "107" name = "Treatment2" x = "4" y = "9" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "255" interface = "no">
+<time value = "15"/>
+<space value = "3"/>
+</stationType>
+<stationType id = "108" name = "Treatment3" x = "15" y = "10" count = "1" colorRed = "0" colorGreen = "255" colorBlue = "0" interface = "no">
+<time value = "10"/>
+<space value = "3"/>
+</stationType>
+</perspective>
+<placeEdge id = "109" connectedIdRef1 = "106" connectedIdRef2 = "107" value = "5" directed = "no"/>
+<placeEdge id = "110" connectedIdRef1 = "106" connectedIdRef2 = "108" value = "5" directed = "no"/>
+<placeEdge id = "111" connectedIdRef1 = "107" connectedIdRef2 = "108" value = "5" directed = "no"/>
+<visitEdge id = "115" connectedIdRef1 = "105" connectedIdRef2 = "106" bold = "no"/>
+<visitEdge id = "116" connectedIdRef1 = "105" connectedIdRef2 = "107" bold = "no"/>
+<visitEdge id = "117" connectedIdRef1 = "105" connectedIdRef2 = "108" bold = "no"/>
+</logisticsGraph>

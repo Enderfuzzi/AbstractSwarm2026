@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "175" name = "Perspective8" x = "28" y = "27" width = "25" height = "31">
+<agentType id = "176" name = "176" x = "2" y = "16" count = "10" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<frequency value = "1"/>
+<necessity value = "1"/>
+<time value = "1"/>
+<speed value = "1"/>
+</agentType>
+<stationType id = "177" name = "Station1" x = "11" y = "1" count = "1" colorRed = "170" colorGreen = "85" colorBlue = "0" interface = "no">
+<frequency value = "1"/>
+<necessity value = "1"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "178" name = "Station2" x = "18" y = "9" count = "2" colorRed = "85" colorGreen = "255" colorBlue = "0" interface = "no">
+<frequency value = "1"/>
+<necessity value = "1"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "179" name = "Station3" x = "9" y = "10" count = "3" colorRed = "255" colorGreen = "0" colorBlue = "0" interface = "no">
+<frequency value = "1"/>
+<necessity value = "1"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "190" name = "Station4" x = "4" y = "3" count = "1" colorRed = "85" colorGreen = "0" colorBlue = "255" interface = "no">
+<frequency value = "1"/>
+<necessity value = "1"/>
+<space value = "2"/>
+</stationType>
+</perspective>
+<placeEdge id = "195" connectedIdRef1 = "190" connectedIdRef2 = "177" value = "0" directed = "no"/>
+<placeEdge id = "196" connectedIdRef1 = "177" connectedIdRef2 = "178" value = "0" directed = "no"/>
+<placeEdge id = "197" connectedIdRef1 = "190" connectedIdRef2 = "179" value = "0" directed = "no"/>
+<placeEdge id = "198" connectedIdRef1 = "179" connectedIdRef2 = "178" value = "0" directed = "no"/>
+<visitEdge id = "199" connectedIdRef1 = "176" connectedIdRef2 = "190" bold = "no"/>
+<visitEdge id = "200" connectedIdRef1 = "176" connectedIdRef2 = "179" bold = "no"/>
+<visitEdge id = "201" connectedIdRef1 = "176" connectedIdRef2 = "177" bold = "no"/>
+<visitEdge id = "202" connectedIdRef1 = "176" connectedIdRef2 = "178" bold = "no"/>
+</logisticsGraph>

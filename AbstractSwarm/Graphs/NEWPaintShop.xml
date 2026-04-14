@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "132" name = "PaintShop" x = "10" y = "16" width = "25" height = "27">
+<agentType id = "134" name = "Painter" x = "3" y = "11" count = "2" colorRed = "0" colorGreen = "255" colorBlue = "255" interface = "no">
+<necessity value = "1"/>
+<speed value = "1"/>
+</agentType>
+<stationType id = "136" name = "GreenProduct1" x = "7" y = "7" count = "1" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<time value = "10"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "138" name = "YellowProduct1" x = "15" y = "7" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "127" interface = "no">
+<time value = "10"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "139" name = "GreenProduct2" x = "7" y = "17" count = "1" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<time value = "10"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "140" name = "BlueProduct" x = "15" y = "17" count = "1" colorRed = "85" colorGreen = "170" colorBlue = "255" interface = "no">
+<time value = "10"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "141" name = "RedProduct" x = "15" y = "12" count = "1" colorRed = "255" colorGreen = "170" colorBlue = "127" interface = "no">
+<time value = "10"/>
+<space value = "1"/>
+</stationType>
+<stationType id = "155" name = "GreenlProduct2" x = "7" y = "23" count = "1" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<frequency value = "1"/>
+<time value = "120"/>
+</stationType>
+<stationType id = "156" name = "BlueProduct" x = "15" y = "23" count = "1" colorRed = "85" colorGreen = "170" colorBlue = "255" interface = "no">
+<frequency value = "1"/>
+<time value = "100"/>
+</stationType>
+<stationType id = "157" name = "DeliveryRedProduct" x = "21" y = "12" count = "1" colorRed = "255" colorGreen = "170" colorBlue = "127" interface = "no">
+<frequency value = "1"/>
+<time value = "120"/>
+</stationType>
+<stationType id = "158" name = "DeliveryYellowProduct1" x = "15" y = "1" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "127" interface = "no">
+<frequency value = "1"/>
+<time value = "140"/>
+</stationType>
+<stationType id = "159" name = "DeliveryGreenProduct1" x = "7" y = "1" count = "1" colorRed = "170" colorGreen = "255" colorBlue = "127" interface = "no">
+<frequency value = "1"/>
+<time value = "100"/>
+</stationType>
+<agentType id = "166" name = "Deliverer2" x = "1" y = "24" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+</agentType>
+<agentType id = "167" name = "Deliverer5" x = "21" y = "24" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+</agentType>
+<agentType id = "168" name = "Deliverer4" x = "21" y = "7" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+</agentType>
+<agentType id = "169" name = "Deliverer3" x = "21" y = "2" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+</agentType>
+<agentType id = "170" name = "Deliverer1" x = "1" y = "2" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+</agentType>
+</perspective>
+<visitEdge id = "142" connectedIdRef1 = "134" connectedIdRef2 = "136" bold = "no"/>
+<visitEdge id = "143" connectedIdRef1 = "134" connectedIdRef2 = "138" bold = "no"/>
+<visitEdge id = "144" connectedIdRef1 = "134" connectedIdRef2 = "141" bold = "no"/>
+<visitEdge id = "145" connectedIdRef1 = "134" connectedIdRef2 = "139" bold = "yes"/>
+<visitEdge id = "146" connectedIdRef1 = "134" connectedIdRef2 = "140" bold = "no"/>
+<placeEdge id = "147" connectedIdRef1 = "136" connectedIdRef2 = "138" value = "5" directed = "no"/>
+<placeEdge id = "148" connectedIdRef1 = "138" connectedIdRef2 = "141" value = "2" directed = "no"/>
+<placeEdge id = "149" connectedIdRef1 = "141" connectedIdRef2 = "140" value = "2" directed = "no"/>
+<placeEdge id = "150" connectedIdRef1 = "140" connectedIdRef2 = "139" value = "5" directed = "no"/>
+<placeEdge id = "151" connectedIdRef1 = "139" connectedIdRef2 = "136" value = "4" directed = "no"/>
+<visitEdge id = "171" connectedIdRef1 = "170" connectedIdRef2 = "159" bold = "yes"/>
+<visitEdge id = "172" connectedIdRef1 = "169" connectedIdRef2 = "158" bold = "yes"/>
+<visitEdge id = "173" connectedIdRef1 = "168" connectedIdRef2 = "157" bold = "yes"/>
+<visitEdge id = "174" connectedIdRef1 = "167" connectedIdRef2 = "156" bold = "yes"/>
+<visitEdge id = "175" connectedIdRef1 = "166" connectedIdRef2 = "155" bold = "yes"/>
+<timeEdge id = "181" connectedIdRef1 = "136" connectedIdRef2 = "170" value = "12" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "182" connectedIdRef1 = "138" connectedIdRef2 = "169" value = "15" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "183" connectedIdRef1 = "141" connectedIdRef2 = "168" value = "20" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "184" connectedIdRef1 = "140" connectedIdRef2 = "167" value = "18" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "185" connectedIdRef1 = "139" connectedIdRef2 = "166" value = "12" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+</logisticsGraph>

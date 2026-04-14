@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<logisticsGraph>
+<perspective id = "163" name = "Preparation" x = "26" y = "14" width = "26" height = "10">
+<stationType id = "164" name = "Task2Preparation" x = "8" y = "6" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "255" interface = "no">
+<time value = "5"/>
+</stationType>
+<stationType id = "165" name = "Task3Preparation" x = "15" y = "6" count = "1" colorRed = "119" colorGreen = "201" colorBlue = "255" interface = "no">
+<time value = "5"/>
+</stationType>
+<stationType id = "166" name = "Task4Preparation" x = "22" y = "6" count = "1" colorRed = "169" colorGreen = "222" colorBlue = "255" interface = "no">
+<time value = "5"/>
+</stationType>
+<agentType id = "167" name = "Preparer" x = "12" y = "1" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<necessity value = "1"/>
+</agentType>
+<stationType id = "188" name = "Task1Preparation" x = "1" y = "6" count = "1" colorRed = "0" colorGreen = "120" colorBlue = "180" interface = "no">
+<time value = "5"/>
+</stationType>
+</perspective>
+<perspective id = "174" name = "Finishing" x = "26" y = "28" width = "26" height = "10">
+<agentType id = "175" name = "Worker" x = "11" y = "6" count = "1" colorRed = "255" colorGreen = "255" colorBlue = "255" interface = "no">
+<necessity value = "1"/>
+</agentType>
+<stationType id = "176" name = "Task2" x = "8" y = "1" count = "1" colorRed = "0" colorGreen = "170" colorBlue = "255" interface = "no">
+<time value = "5"/>
+</stationType>
+<stationType id = "177" name = "Task3" x = "15" y = "1" count = "1" colorRed = "119" colorGreen = "201" colorBlue = "255" interface = "no">
+<time value = "2"/>
+</stationType>
+<stationType id = "178" name = "Task4" x = "22" y = "1" count = "1" colorRed = "169" colorGreen = "222" colorBlue = "255" interface = "no">
+<time value = "1"/>
+</stationType>
+<stationType id = "189" name = "Task1" x = "1" y = "1" count = "1" colorRed = "0" colorGreen = "120" colorBlue = "180" interface = "no">
+<time value = "7"/>
+</stationType>
+</perspective>
+<visitEdge id = "168" connectedIdRef1 = "167" connectedIdRef2 = "164" bold = "no"/>
+<visitEdge id = "169" connectedIdRef1 = "167" connectedIdRef2 = "165" bold = "yes"/>
+<visitEdge id = "171" connectedIdRef1 = "167" connectedIdRef2 = "166" bold = "no"/>
+<placeEdge id = "172" connectedIdRef1 = "164" connectedIdRef2 = "165" value = "0" directed = "no"/>
+<placeEdge id = "173" connectedIdRef1 = "165" connectedIdRef2 = "166" value = "0" directed = "no"/>
+<visitEdge id = "179" connectedIdRef1 = "175" connectedIdRef2 = "176" bold = "yes"/>
+<visitEdge id = "180" connectedIdRef1 = "175" connectedIdRef2 = "177" bold = "no"/>
+<visitEdge id = "181" connectedIdRef1 = "175" connectedIdRef2 = "178" bold = "no"/>
+<placeEdge id = "182" connectedIdRef1 = "176" connectedIdRef2 = "177" value = "0" directed = "no"/>
+<placeEdge id = "183" connectedIdRef1 = "177" connectedIdRef2 = "178" value = "0" directed = "no"/>
+<timeEdge id = "185" connectedIdRef1 = "164" connectedIdRef2 = "176" value = "5" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "186" connectedIdRef1 = "165" connectedIdRef2 = "177" value = "5" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "187" connectedIdRef1 = "166" connectedIdRef2 = "178" value = "5" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<timeEdge id = "190" connectedIdRef1 = "188" connectedIdRef2 = "189" value = "5" directed = "yes" andConnected1 = "no" andConnected2 = "no"/>
+<visitEdge id = "191" connectedIdRef1 = "167" connectedIdRef2 = "188" bold = "no"/>
+<placeEdge id = "192" connectedIdRef1 = "188" connectedIdRef2 = "164" value = "0" directed = "no"/>
+<placeEdge id = "193" connectedIdRef1 = "189" connectedIdRef2 = "176" value = "0" directed = "no"/>
+<visitEdge id = "194" connectedIdRef1 = "175" connectedIdRef2 = "189" bold = "no"/>
+</logisticsGraph>
