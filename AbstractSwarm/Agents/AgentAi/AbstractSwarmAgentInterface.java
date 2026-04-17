@@ -17,9 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -125,7 +124,8 @@ import java.util.Random;
  * .outgoing       whether the edge is outgoing<br />
  */
 public class AbstractSwarmAgentInterface {
-	
+
+	private static final TimeStatistic timeStatistic = new TimeStatistic();
 	
 	/**
 	 * This method allows an agent to perceive its current state and to perform
@@ -143,7 +143,32 @@ public class AbstractSwarmAgentInterface {
 	 * @return          the evaluation value of the station
 	 */
 	public static double evaluation( Agent me, HashMap<Agent, Object> others, List<Station> stations, long time, Station station ) {
-		return 0.0;
+
+		if (timeStatistic.firstRun) {
+			timeStatistic.firstRun = false;
+
+			// TODO put first init here
+		}
+
+		timeStatistic.currentTime = time;
+
+		if (timeStatistic.currentTime == 1 && timeStatistic.lastTime != 1) {
+			timeStatistic.newRun = true;
+			timeStatistic.numberOfSimulations++;
+		} else {
+			timeStatistic.newRun = false;
+		}
+
+		if (timeStatistic.firstIteration && timeStatistic.currentTime == 1) {
+			// in each first time step init all path cost since an agent might not reach each station
+			initPathCost(stations);
+		}
+
+
+		double result = -1 * getPathCost(me.previousTarget, station);
+		Prediction prediction = new Prediction(time, me, station, result);
+		System.out.println(prediction);
+		return result;
 	}
 	
 	
@@ -181,4 +206,81 @@ public class AbstractSwarmAgentInterface {
 	 */
 	public static void reward( Agent me, HashMap<Agent, Object> others, List<Station> stations, long time, double value ) {
 	}
+
+	// ----------------------------------------------
+	// Time statistics
+
+	static class TimeStatistic {
+			public boolean firstRun = true;
+			public boolean newRun = true;
+
+			public long currentTime = 0L;
+
+			public long lastTime = 0L;
+
+			public boolean firstIteration = true;
+
+			public long numberOfSimulations = 0L;
+	}
+
+
+
+	// ----------------------------------------------
+	// Path calculations
+
+	private static final HashMap<StationType, HashMap<StationType, Integer>> PATH_COST = new HashMap<>();
+
+	record PathPair(StationType station, Integer cost) implements Comparable<PathPair> {
+		@Override
+		public int compareTo(PathPair other) {
+			return Integer.compare(this.cost, other.cost);
+		}
+	};
+
+	private static void initPathCost(List<Station> stations) {
+		// get list of all types present here
+		Set<StationType> stationsTypes = stations.stream().map(station -> station.type).collect(Collectors.toSet());
+
+		// calculate each combination
+		for (StationType sourceType : stationsTypes) {
+			if (PATH_COST.containsKey(sourceType)) continue;
+			PATH_COST.put(sourceType, new HashMap<>());
+			for (StationType targetType : stationsTypes) {
+				if (sourceType == targetType) continue;
+				if (PATH_COST.get(sourceType).containsKey(targetType)) continue;
+				PATH_COST.get(sourceType).put(targetType, dijkstra(sourceType, targetType));
+			}
+		}
+	}
+
+	private static int dijkstra(StationType current, StationType target) {
+		if (current == target) return 0;
+
+		PriorityQueue<PathPair> queue = new PriorityQueue<>();
+		queue.add(new PathPair(current, 0));
+		List<StationType> used = new ArrayList<>();
+		while(!queue.isEmpty()) {
+			PathPair currentPair = queue.poll();
+			if (used.contains(currentPair.station)) continue;
+			used.add(currentPair.station);
+			if (currentPair.station == target) {
+				System.out.printf("Path calculation: %s to %s with cost: %d \n", current.name, target.name, currentPair.cost);
+				return currentPair.cost;
+			}
+
+			for (PlaceEdge edge : currentPair.station.placeEdges) {
+				queue.add(new PathPair((StationType) edge.connectedType, currentPair.cost + edge.weight));
+			}
+		}
+		return -1;
+	}
+
+	private static int getPathCost(Station current, Station target) {
+		if (!PATH_COST.containsKey(current.type)) return 0;
+		return PATH_COST.get(current.type).getOrDefault(target.type, 0);
+	}
+
+	// ----------------------------------------------
+	//
+
 }
