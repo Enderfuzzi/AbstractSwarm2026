@@ -165,9 +165,23 @@ public class AbstractSwarmAgentInterface {
 		}
 
 
+		DataObject data = new DataObject.DataFactory()
+				.add(DataObject.Attribute.TIME, timeStatistic.currentTime)
+				.add(DataObject.Attribute.AGENT, me)
+				.add(DataObject.Attribute.STATION, station)
+				.add(DataObject.Attribute.STATIONS, stations)
+				.add(DataObject.Attribute.PATH_COST, getPathCost(me.previousTarget, station))
+				.create();
+
+		System.out.println(data);
+
+		System.out.println(data.getHeader());
+		System.out.println(Arrays.toString(data.getData()));
+
+
 		double result = -1 * getPathCost(me.previousTarget, station);
 		Prediction prediction = new Prediction(time, me, station, result);
-		System.out.println(prediction);
+		//System.out.println(prediction);
 		return result;
 	}
 	
