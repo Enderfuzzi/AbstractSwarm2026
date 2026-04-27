@@ -126,7 +126,15 @@ import java.util.stream.Collectors;
 public class AbstractSwarmAgentInterface {
 
 	private static final TimeStatistic timeStatistic = new TimeStatistic();
-	
+
+	private static Network model;
+
+	private static final HashMap<Agent, List<Double>> PREVIOUS_REWARDS = new HashMap<>();
+
+
+	private static final HashMap<Agent, Workprediction> WORKPREDICTION = new HashMap<>();
+	private static final HashMap<Station, Set<Agent>> STATION_TARGETED = new HashMap<>();
+
 	/**
 	 * This method allows an agent to perceive its current state and to perform
 	 * actions by returning an evaluation value for potential next target
@@ -146,7 +154,7 @@ public class AbstractSwarmAgentInterface {
 
 		if (timeStatistic.firstRun) {
 			timeStatistic.firstRun = false;
-
+			model = new Network(DataObject.getDataSize());
 			// TODO put first init here
 		}
 
@@ -155,8 +163,16 @@ public class AbstractSwarmAgentInterface {
 		if (timeStatistic.currentTime == 1 && timeStatistic.lastTime != 1) {
 			timeStatistic.newRun = true;
 			timeStatistic.numberOfSimulations++;
+
+			model.resetEpsilon();
+
 		} else {
 			timeStatistic.newRun = false;
+		}
+
+		if (!PREVIOUS_REWARDS.containsKey(me)) {
+			PREVIOUS_REWARDS.put(me, new ArrayList<>());
+			PREVIOUS_REWARDS.get(me).add(1.0);
 		}
 
 		if (timeStatistic.firstIteration && timeStatistic.currentTime == 1) {
@@ -164,24 +180,39 @@ public class AbstractSwarmAgentInterface {
 			initPathCost(stations);
 		}
 
+		int stationTargeted = STATION_TARGETED.getOrDefault(station, new HashSet<>()).size();
+
+		int pathCost = getPathCost(me.previousTarget, station);
 
 		DataObject data = new DataObject.DataFactory()
 				.add(DataObject.Attribute.TIME, timeStatistic.currentTime)
-				.add(DataObject.Attribute.AGENT, me)
-				.add(DataObject.Attribute.STATION, station)
-				.add(DataObject.Attribute.STATIONS, stations)
-				.add(DataObject.Attribute.PATH_COST, getPathCost(me.previousTarget, station))
+				.add(DataObject.Attribute.AGENT_NAME, me.name)
+				.add(DataObject.Attribute.AGENT_SPACE, Math.abs(me.type.size))
+				.add(DataObject.Attribute.AGENT_SIZE, me.type.components.size())
+				.add(DataObject.Attribute.AGENT_FREQUENCY, Math.max(me.frequency, 0))
+				.add(DataObject.Attribute.AGENT_NECESSITY, Math.max(me.type.necessity, 0))
+
+				.add(DataObject.Attribute.STATION_NAME, station.name)
+				.add(DataObject.Attribute.STATION_SPACE, station.space)
+				.add(DataObject.Attribute.STATION_SIZE, station.type.components.size())
+				.add(DataObject.Attribute.STATION_FREQUENCY, Math.max(station.frequency, 0))
+				.add(DataObject.Attribute.STATION_NECESSITY, Math.max(station.type.necessity, 0))
+				// .add(DataObject.Attribute.STATIONS, stations)
+				.add(DataObject.Attribute.PATH_COST, -1 * pathCost)
+				.add(DataObject.Attribute.MEAN_PATH_COST, -1 * MEAN_PATH_COST.get(station.type))
 				.create();
 
-		System.out.println(data);
+		// System.out.println(data);
 
-		System.out.println(data.getHeader());
+		// System.out.println(data.getHeader());
 		System.out.println(Arrays.toString(data.getData()));
 
+		double result = model.predict(me, data.getData());
 
-		double result = -1 * getPathCost(me.previousTarget, station);
+
+		// double result = -1 * getPathCost(me.previousTarget, station);
 		Prediction prediction = new Prediction(time, me, station, result);
-		//System.out.println(prediction);
+		System.out.println(prediction);
 		return result;
 	}
 	
@@ -202,6 +233,21 @@ public class AbstractSwarmAgentInterface {
 	 * @return             the communication data object
 	 */
 	public static Object communication( Agent me, HashMap<Agent, Object> others, List<Station> stations, long time, Object[] defaultData ) {
+		Station target = (Station) defaultData[0];
+
+		if (!STATION_TARGETED.containsKey(target)) {
+			STATION_TARGETED.put(target, new HashSet<>());
+		}
+
+		STATION_TARGETED.get(target).add(me);
+
+		if (!WORKPREDICTION.containsKey(me)) {
+			WORKPREDICTION.put(me, new Workprediction(me, target , (Long) defaultData[1]));
+		}
+
+
+
+
 		return null;
 	}
 
@@ -219,6 +265,24 @@ public class AbstractSwarmAgentInterface {
 	 *                     recent action 
 	 */
 	public static void reward( Agent me, HashMap<Agent, Object> others, List<Station> stations, long time, double value ) {
+		System.out.printf("[%d] reward: %f \n", time, value);
+
+        WORKPREDICTION.remove(me);
+
+		//double lastReward = PREVIOUS_REWARDS.get(me).get(PREVIOUS_REWARDS.get(me).size() - 1);
+		//double manipulatedReward = lastReward - value;
+
+		//System.out.printf("[%d] manipulated reward: %f \n", time, manipulatedReward);
+
+		//PREVIOUS_REWARDS.get(me).add(value);
+
+		model.train(me, value);
+	}
+
+	record Workprediction(Agent agent, Station station, long arrivalTime, long finishTime) {
+		public Workprediction(Agent agent, Station station, long arrivalTime) {
+			this(agent, station, arrivalTime, arrivalTime + timeAtStation(agent, station));
+		}
 	}
 
 	// ----------------------------------------------
@@ -243,6 +307,7 @@ public class AbstractSwarmAgentInterface {
 	// Path calculations
 
 	private static final HashMap<StationType, HashMap<StationType, Integer>> PATH_COST = new HashMap<>();
+	private static final HashMap<StationType, Double> MEAN_PATH_COST = new HashMap<>();
 
 	record PathPair(StationType station, Integer cost) implements Comparable<PathPair> {
 		@Override
@@ -265,6 +330,16 @@ public class AbstractSwarmAgentInterface {
 				PATH_COST.get(sourceType).put(targetType, dijkstra(sourceType, targetType));
 			}
 		}
+
+		// calculate the mean distance to each reachable station
+		for (StationType sourceType : stationsTypes) {
+			int value = 0;
+			for (Map.Entry<StationType, Integer> target : PATH_COST.get(sourceType).entrySet()) {
+				value += target.getValue();
+			}
+			MEAN_PATH_COST.put(sourceType, (double) (value / PATH_COST.get(sourceType).size()));
+		}
+
 	}
 
 	private static int dijkstra(StationType current, StationType target) {
@@ -278,7 +353,7 @@ public class AbstractSwarmAgentInterface {
 			if (used.contains(currentPair.station)) continue;
 			used.add(currentPair.station);
 			if (currentPair.station == target) {
-				System.out.printf("Path calculation: %s to %s with cost: %d \n", current.name, target.name, currentPair.cost);
+				// System.out.printf("Path calculation: %s to %s with cost: %d \n", current.name, target.name, currentPair.cost);
 				return currentPair.cost;
 			}
 
@@ -296,5 +371,18 @@ public class AbstractSwarmAgentInterface {
 
 	// ----------------------------------------------
 	//
+
+	public static int timeAtStation(Agent agent, Station station) {
+		return Math.max(agent.time, station.type.time);
+	}
+
+	public static int occupationAtArrival(Agent me, Station station, int arrivalTime) {
+		// TODO for each entry in WORK filter if arrival is after arrivalTime
+		return 0;
+	}
+
+	// TODO calculate the working time of an agent -> frequency and necessity
+	// TODO calculate the minimum waiting time?
+	// TODO calculate the working time left?
 
 }

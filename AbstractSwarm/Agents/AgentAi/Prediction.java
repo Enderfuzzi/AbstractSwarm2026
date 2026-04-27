@@ -7,6 +7,6 @@ public record Prediction(
 
     @Override
     public String toString() {
-        return String.format("[%d] Agent: %s Station: %s, Value: %f \n", time, agent.name, station.name, value);
+        return String.format("[%d] Agent: %s Station: %s, Value: %f", time, agent.name, station.name, value);
     }
 }
