@@ -5,20 +5,27 @@ import java.util.function.ToDoubleFunction;
 public class DataObject {
 
    enum Attribute {
-       TIME(o -> ((Long) o).doubleValue()),
+       TIME(o -> (Double) o),
        AGENT_NAME(o -> -1),
-       AGENT_SPACE,
-       AGENT_SIZE,
-       AGENT_FREQUENCY,
-       AGENT_NECESSITY,
+       AGENT_SPACE(o -> (Double) o),
+       AGENT_SIZE(o -> (Double) o),
+       AGENT_FREQUENCY(o -> (Double) o),
+       AGENT_NECESSITY(o -> (Double) o),
        STATION_NAME(o -> -1),
-       STATION_SPACE,
-       STATION_SIZE,
-       STATION_FREQUENCY,
-       STATION_NECESSITY,
+       STATION_SPACE(o -> (Double) o),
+       STATION_SIZE(o -> (Double) o),
+       STATION_FREQUENCY(o -> (Double) o),
+       STATION_NECESSITY(o -> (Double) o),
        // STATIONS,
-       PATH_COST(o -> ((Integer) o).doubleValue()),
+       PATH_COST(o -> (Double) o),
        MEAN_PATH_COST(o -> (Double) o),
+
+       MAX_AGENT_WORK(o -> (Double) o),
+       MAX_STATION_WORK(o -> (Double) o),
+
+       REMAINING_AGENT_WORK(o -> (Double) o),
+
+       REMAINING_STATION_WORK(o -> (Double) o),
 
        ;
 
