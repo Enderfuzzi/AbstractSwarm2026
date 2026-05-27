@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  */
 public class PathCalculation {
 
-    private static final boolean LOG = true;
+    private static final boolean LOG = false;
 
     private static final HashMap<StationType, HashMap<StationType, Integer>> PATH_COST = new HashMap<>();
 
@@ -79,6 +79,7 @@ public class PathCalculation {
      * @return the distance or -1 if no connection is available
      */
     public static int getPathCost(StationType current, StationType target) {
+        if (current == target) return 0;
         if (!PATH_COST.containsKey(current)) return -1;
         return PATH_COST.get(current).getOrDefault(target, -1);
     }

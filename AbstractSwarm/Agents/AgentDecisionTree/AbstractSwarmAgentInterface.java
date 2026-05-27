@@ -188,9 +188,10 @@ public class AbstractSwarmAgentInterface {
 				MAX_VALUES.put("AGENT_FREQUENCY", Math.max(MAX_VALUES.getOrDefault("AGENT_FREQUENCY", 1), a.type.frequency));
 			}
 
-			PlacePlanCalculation.init(stations);
+
 			List<Agent> agents = new ArrayList<>(others.keySet());
 			agents.add(me);
+			PlacePlanCalculation.init(agents, stations);
 			WorkCalculation.init(agents, stations);
 
 		}
@@ -222,7 +223,7 @@ public class AbstractSwarmAgentInterface {
 
 		if (timeStatistic.firstIteration && timeStatistic.currentTime == 1) {
 			// in each first time step init all path cost since an agent might not reach each station
-			PathCalculation.initPathCost(stations);
+			PathCalculation.init(stations);
 		}
 
 		if (!WEIGHTS.containsKey(weightKey)) {
@@ -268,7 +269,7 @@ public class AbstractSwarmAgentInterface {
 
 		System.out.printf("[%d] %s possible start time: %d%n", time, me.name, SpaceCalculation.nextFreeSlot(me, station, time, pathCost + time));
 
-		System.out.printf("Visits left: %b \n", WorkCalculation.visitsLeft(station));
+		System.out.printf("Visits left: %b \n", TimePlanCalculation.visitsLeft(station));
 
 		System.out.printf("Normal: %b Time: %b \n", probabilities.checkKey(ProbabilityKey.NORMAL), probabilities.checkKey(ProbabilityKey.TIME));
 

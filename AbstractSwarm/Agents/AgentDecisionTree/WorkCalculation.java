@@ -330,39 +330,4 @@ public class WorkCalculation {
     }
 
 
-    public static boolean visitsLeft(Station station) {
-        System.out.printf("[VisitsLeft]: frequency: %d \n", station.frequency);
-        if (station.type.frequency != -1) {
-            if (station.frequency > 0) return true;
-        }
-        if (station.type.necessity != -1) {
-            for (Map.Entry<Agent, Integer> entry : station.necessities.entrySet()) {
-                System.out.printf("[VisitsLeft] necessity %s %d\n", entry.getKey().name, entry.getValue());
-                if (entry.getValue() > 0) return true;
-            }
-        }
-
-        for (VisitEdge edge : station.type.visitEdges) {
-            AgentType agentType = (AgentType) edge.connectedType;
-            if (agentType.necessity == -1 && agentType.frequency == -1) return false;
-            for (Agent agent : agentType.components) {
-                if (agentType.frequency != -1) {
-                    if (agent.frequency > 0) return true;
-                }
-                if (agentType.necessity != -1) {
-                    for (Map.Entry<Station, Integer> entry : agent.necessities.entrySet()) {
-                        if (!entry.getKey().equals(station)) continue;
-                        if (entry.getValue() > 0) {
-                            System.out.printf("[VisitsLeft] necessity %s %d\n", entry.getKey().name, entry.getValue());
-                            return true;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        return false;
-    }
-
 }

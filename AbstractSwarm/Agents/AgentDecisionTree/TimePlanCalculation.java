@@ -1,10 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class TimePlanCalculation {
 
     private static final boolean LOG = true;
 
+    /**
+     * Check if the given Station is allowed to be visited
+     * @param station The station to check
+     * @return true if the station can be visited else false
+     */
     public static boolean allowed(Station station) {
         StationType type = station.type;
         boolean canVisit = false;
@@ -23,7 +27,7 @@ public class TimePlanCalculation {
 
             boolean allowed = false;
             for (Station station1 : stationType.components) {
-                if (WorkCalculation.visitsLeft(station1)) {
+                if (visitsLeft(station1)) {
                     allowed = true;
                     break;
                 }
@@ -52,32 +56,43 @@ public class TimePlanCalculation {
         return canVisit || visited == 0;
     }
 
-
-    public static double directedEdgeCalculation(Agent agent, Station station) {
-        double result = 0;
-        int number = 0;
-
-        List<TimeEdge> edges = station.type.timeEdges;
-        // case outgoing
-        // TODO Station hat ausgehende Kante -> gewicht der Kante + Zeit an der Station
-
-        for (TimeEdge edge : edges) {
-            int weight = edge.weight;
-            if (edge.outgoing) {
-
-
+    /**
+     * Checks if the given Station has visits left
+     * @param station The Station to check
+     * @return true if there is at least one visit left
+     */
+    public static boolean visitsLeft(Station station) {
+        System.out.printf("[VisitsLeft]: frequency: %d \n", station.frequency);
+        if (station.type.frequency != -1) {
+            if (station.frequency > 0) return true;
+        }
+        if (station.type.necessity != -1) {
+            for (Map.Entry<Agent, Integer> entry : station.necessities.entrySet()) {
+                System.out.printf("[VisitsLeft] necessity %s %d\n", entry.getKey().name, entry.getValue());
+                if (entry.getValue() > 0) return true;
             }
+        }
 
-            if (edge.incoming) {
-
+        for (VisitEdge edge : station.type.visitEdges) {
+            AgentType agentType = (AgentType) edge.connectedType;
+            if (agentType.necessity == -1 && agentType.frequency == -1) return false;
+            for (Agent agent : agentType.components) {
+                if (agentType.frequency != -1) {
+                    if (agent.frequency > 0) return true;
+                }
+                if (agentType.necessity != -1) {
+                    for (Map.Entry<Station, Integer> entry : agent.necessities.entrySet()) {
+                        if (!entry.getKey().equals(station)) continue;
+                        if (entry.getValue() > 0) {
+                            System.out.printf("[VisitsLeft] necessity %s %d\n", entry.getKey().name, entry.getValue());
+                            return true;
+                        }
+                    }
+                }
             }
 
         }
 
-
-        // case incoming
-
-        return result;
+        return false;
     }
-
 }

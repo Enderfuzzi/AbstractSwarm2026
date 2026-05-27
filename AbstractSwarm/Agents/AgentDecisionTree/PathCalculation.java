@@ -5,9 +5,6 @@ public class PathCalculation {
 
 
     private static final HashMap<StationType, HashMap<StationType, Integer>> PATH_COST = new HashMap<>();
-    private static final HashMap<StationType, Double> MEAN_PATH_COST = new HashMap<>();
-
-    private static int max_path_cost = 1;
 
     record PathPair(StationType station, Integer cost) implements Comparable<PathPair> {
         @Override
@@ -16,7 +13,11 @@ public class PathCalculation {
         }
     };
 
-    public static void initPathCost(List<Station> stations) {
+    /**
+     * Calculates and stores the path to each station to improve calculation time
+     * @param stations all stations in the scenario
+     */
+    public static void init(List<Station> stations) {
         // get list of all types present here
         Set<StationType> stationsTypes = stations.stream().map(station -> station.type).collect(Collectors.toSet());
 
@@ -30,17 +31,6 @@ public class PathCalculation {
                 PATH_COST.get(sourceType).put(targetType, dijkstra(sourceType, targetType));
             }
         }
-
-        // calculate the mean distance to each reachable station
-        for (StationType sourceType : stationsTypes) {
-            int value = 0;
-            for (Map.Entry<StationType, Integer> target : PATH_COST.get(sourceType).entrySet()) {
-                value += target.getValue();
-                max_path_cost = Math.max(max_path_cost, target.getValue());
-            }
-            MEAN_PATH_COST.put(sourceType, (double) (value / PATH_COST.get(sourceType).size()));
-        }
-
     }
 
     private static int dijkstra(StationType current, StationType target) {
@@ -65,9 +55,25 @@ public class PathCalculation {
         return -1;
     }
 
+    /**
+     *
+     * @param current the start station
+     * @param target the target station
+     * @return the distance or -1 if no connection is available
+     */
     public static int getPathCost(Station current, Station target) {
-        if (!PATH_COST.containsKey(current.type)) return 0;
+        if (!PATH_COST.containsKey(current.type)) return -1;
         return PATH_COST.get(current.type).getOrDefault(target.type, 0);
+    }
+
+    /**
+     * Checks if a station is reachable
+     * @param current the start station
+     * @param target the target station
+     * @return true if reachable
+     */
+    public static boolean reachable(Station current, Station target) {
+        return getPathCost(current, target) != -1;
     }
 
 }
