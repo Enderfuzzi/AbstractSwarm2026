@@ -391,7 +391,7 @@ cd ..\..\.
 
 echo #   Starting PerformanceEvaluation.jar
 
-Start javaw.exe -Xms8G -jar ./PerformanceEvaluation.jar %dt%
+Start javaw.exe -Xms4G -jar ./PerformanceEvaluation.jar %dt%
 
 echo #   Done.
 echo.

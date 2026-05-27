@@ -14,8 +14,8 @@ public class OperatorNode implements Node {
 	}
 
 	@Override
-	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station) {
-		return op.evaluate(left.evaluate(me, others, station), right.evaluate(me, others, station));
+	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station, long time) {
+		return op.evaluate(left.evaluate(me, others, station, time), right.evaluate(me, others, station, time));
 	}
 
 	@Override

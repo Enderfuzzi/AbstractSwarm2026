@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConsumerNode implements Node{
-	private OwnConsumer consumer;
-	private String title;
+public class ConsumerNode implements Node {
+	private final OwnConsumer consumer;
+	private final String title;
 	
 	public ConsumerNode(OwnConsumer consumer, String title) {
 		this.consumer = consumer;
@@ -12,8 +12,8 @@ public class ConsumerNode implements Node{
 	}
 
 	@Override
-	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station) {
-		return consumer.compute(me, others, station);
+	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station, long time) {
+		return consumer.compute(me, others, station, time);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class ConsumerNode implements Node{
 	
 
 	@Override
-	public ConsumerNode copy() {
+	public  ConsumerNode copy() {
 		return new ConsumerNode(consumer, title);
 	}
 

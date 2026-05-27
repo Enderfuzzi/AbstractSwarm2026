@@ -2,8 +2,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface Node {
-	double evaluate(Agent me, HashMap<Agent, Object> others, Station station);
-	
+
+	double evaluate(Agent me, HashMap<Agent, Object> others, Station station, long time);
+
+
 	int depth();
 	
 	boolean isLeaf();
@@ -15,7 +17,7 @@ public interface Node {
 		return false;
 	}
 	
-	<T extends Node> T copy();
+	Node copy();
 	
 	List<Node> getLeafNodes();
 	

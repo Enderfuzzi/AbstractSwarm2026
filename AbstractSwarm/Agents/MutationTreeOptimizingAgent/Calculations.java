@@ -128,9 +128,7 @@ public class Calculations {
 							new OperatorNode(Operator.DIVISION, 
 									new ConsumerNode((OwnConsumer) Calculations::totalAgentTime, "Total Agent Time"), 
 									new ConsumerNode((OwnConsumer) Calculations::estimatedWorkTimeLeft, "Work Time Left"))));
-			
 
-			System.out.println("Has Path cost: " + pathCost);
 
 			if (stationSpace) {
 				baseProbability.add("space");
@@ -149,18 +147,26 @@ public class Calculations {
 			}
 			
 			//TODO Trade less mutation rate into more crossover rate
-			
-			mutationProbability.add("mutation", 0.6);
-			mutationProbability.add("crossover", 0.5);
-			mutationProbability.add("largeCrossover", 0.3);
+
+			// mutation 0.6
+			// crossover 0.5
+			// large crossover 0.3
+
+			// value 0.4
+			// operator 0.6
+
+			// TODO more aggressive changes
+
+			mutationProbability.add("mutation", 0.5);
+			mutationProbability.add("crossover", 0.4);
+			mutationProbability.add("largeCrossover", 0.4);
 			
 			basicMutationProbability.add("value", 0.4);
 			basicMutationProbability.add("operator", 0.6);
 		}
-		
-		
+
 		if (!totalTime.containsKey(me.type)) {
-			totalTime.put(me.type, estimatedWorkTimeLeft(me, others, station));
+			totalTime.put(me.type, estimatedWorkTimeLeft(me, others, station, time));
 		}
 
 		double currentFitness = 0.0;
@@ -196,8 +202,7 @@ public class Calculations {
 			}
 			
 		}
-		
-		
+
 		
 		if (timeStatistic.newBestRun) {
 			bestTrees = new ArrayList<>(currentTrees);
@@ -211,6 +216,7 @@ public class Calculations {
 
 			PlacePlanCalculation.reset();
 			TimePlanCalculation.reset();
+			SpaceCalculation.reset();
 
 			VISIT.clear();
 		}
@@ -361,7 +367,7 @@ public class Calculations {
 		}
 
 		// the agent size exceeds the station initial space
-		if (agentSize(me, others, station) > stationSpace(me, others, station)) {
+		if (agentSize(me, others, station, time) > stationSpace(me, others, station, time)) {
 			if (TEXT_OUTPUT) System.out.println("Agent to large");
 			return Double.NEGATIVE_INFINITY;
 		}
@@ -371,14 +377,17 @@ public class Calculations {
 			return Double.NEGATIVE_INFINITY;
 		}
 
-		return evaluation.evaluate(me, others, station);
+		return evaluation.evaluate(me, others, station, time);
 	}
 	
 	public static void communication(Agent me, HashMap<Agent, Object> others, List<Station> stations, 
 			long time, Object[] defaultData, TimeStatistics timeStatistic){
 		Station target = (Station) defaultData[0];
+		long arrival = (Long) defaultData[1];
+		double value = (Double) defaultData[2];
 
 
+		SpaceCalculation.update(me, target, arrival, value);
 		VISIT.put(me, target);
 	}
 	
@@ -410,17 +419,18 @@ public class Calculations {
 		PlacePlanCalculation.addVisit(me, visited);
 		TimePlanCalculation.addVisit(me, visited);
 
+		SpaceCalculation.finishedVisit(me);
 	}
 	
 	
-	private static double computeAgentFrequency(Agent me,  HashMap<Agent, Object> others, Station station) {
+	private static double computeAgentFrequency(Agent me,  HashMap<Agent, Object> others, Station station, long time) {
 		if (me.frequency == -1) return 0.0;
 		double result = 0.0;
-		if (agentSize(me, others, station) * me.type.components.size() <= stationSpace(station.type)) {
+		if (agentSize(me, others, station, time) * me.type.components.size() <= stationSpace(station.type)) {
 			result += 1.0;
 		}
 		
-		if (TEXT_OUTPUT) System.out.println(String.format("[Agent Frequency]: Station: %s, Agent: %s, Result: %d", me.name, station.name, me.type.size));
+		if (TEXT_OUTPUT) System.out.printf("[Agent Frequency]: Station: %s, Agent: %s, Result: %d%n", me.name, station.name, me.type.size);
 		// if there are other stations suitable
 		List<StationType> used = new ArrayList<>();
 		for (VisitEdge edge : me.type.visitEdges) {
@@ -428,13 +438,13 @@ public class Calculations {
 			if (stationType == station.type) continue;
 			if (used.contains(stationType)) continue;
 			used.add(stationType);
-			if (agentSize(me, others, station) * me.type.components.size() <= stationSpace(stationType)) {
+			if (agentSize(me, others, station, time) * me.type.components.size() <= stationSpace(stationType)) {
 				result -= 0.5;
 			}
 			
 		}
 		
-		if (TEXT_OUTPUT) System.out.println(String.format("[Agent Frequency]: Station: %s, Agent: %s, Result: %f", me.name, station.name, result));
+		if (TEXT_OUTPUT) System.out.printf("[Agent Frequency]: Station: %s, Agent: %s, Result: %f%n", me.name, station.name, result);
 		
 		// if the other agents size exceeds this station priorities it
 		List<AgentType> usedAgent = new ArrayList<>();
@@ -453,12 +463,12 @@ public class Calculations {
 			}
 			if (!check) continue;
 			
-			if (agentSize(agent, others, station) * agent.type.components.size() > stationSpace(station.type)) {
+			if (agentSize(agent, others, station, time) * agent.type.components.size() > stationSpace(station.type)) {
 				result += 0.5;
 			}
 		}
 		
-		if (station.space >= agentSize(me, others, station)) {
+		if (station.space >= agentSize(me, others, station, time)) {
 			result += 0.5;
 		}
 		
@@ -466,17 +476,17 @@ public class Calculations {
 		return result;
 	}
 	
-	private static double stationFrequency(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static double stationFrequency(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		if (station.frequency == -1) return 0.0;
 		double result = 0.0;
 		
 		if (stationSpace(station.type) != Integer.MAX_VALUE) {
-			result = -1.0 * stationTargeted(me, others, station) + 1.0 * stationSpace(station.type);
+			result = -1.0 * stationTargeted(others, station) + 1.0 * stationSpace(station.type);
 		}
 
-		int agentSize = agentSize(me,others,station);
+		int agentSize = agentSize(me, others,station,time);
 		int currentStationSpace = station.space;
-		if (currentStationSpace != -1 && agentSize != 0) result += station.space / (double) agentSize(me,others,station);
+		if (currentStationSpace != -1 && agentSize != 0) result += station.space / (double) agentSize(me,others,station, time);
 		else if (currentStationSpace != -1) result += currentStationSpace;
 
 		// prefer to stay at a station
@@ -485,14 +495,20 @@ public class Calculations {
 		result -= timeAtStation(me, station.type) * 1.0;
 		return result;
 	}
-	
-	private static double maxDistribution(Agent me, HashMap<Agent, Object> others, Station station) {		
+
+	// TODO REPLACE THIS WITH MY PLACE calculation and test
+
+	private static double maxDistribution(Agent me, HashMap<Agent, Object> others, Station station, long time) {
+		/*
 		if (stationSpace(station.type) != Integer.MAX_VALUE) {
 			return -1.0 * stationTargeted(me, others, station) + 1.0 * stationSpace(station.type);
 		}
 		return (double) 2 / (stationTargeted(me,others,station) + 1);
+		 */
+
+		return 1.0 / (SpaceCalculation.nextFreeSlot(me, station, time, PathCalculation.getPathCost(me.previousTarget, station) + time) + 1);
 	}
-	
+
 	/**
 	 * Extracts the initial space of a station type. Returns 1 if the station type has no space attribute.
 	 * @param station The station type to check.
@@ -510,7 +526,7 @@ public class Calculations {
 	 * @param station The station to check
 	 * @return The space of a station or 1 if the station has no space attribute
 	 */
-	private static int stationSpace(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static int stationSpace(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		int result = stationSpace(station.type);
 		return result == Integer.MAX_VALUE ? 100 : result;
 	}
@@ -523,7 +539,7 @@ public class Calculations {
 	 * @param station unused parameter
 	 * @return the extracted size of an agent.
 	 */
-	private static int agentSize(Agent me,  HashMap<Agent, Object> others, Station station) {
+	private static int agentSize(Agent me,  HashMap<Agent, Object> others, Station station, long time) {
 		if (me.type.size == -1) return 0;
 		return me.type.size;
 	}
@@ -541,7 +557,7 @@ public class Calculations {
 		return counter;
 	}
 
-	private static int stationTargeted(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static int stationTargeted(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		return stationTargeted(others, station);
 	}
 
@@ -553,7 +569,7 @@ public class Calculations {
 		for (ResultPair pair : connectedStations) {
 			result += timeAtStation(me, others, pair.station);
 			result += pair.cost;
-			result += stationTargeted(me, others, pair.station) * 3;
+			result += stationTargeted(others, pair.station) * 3;
 		}
 		return result;
 	}
@@ -575,7 +591,7 @@ public class Calculations {
 	private static double computeTimeConnectedAgents(Agent me, HashMap<Agent, Object> others, Station station, List<Agent> connectedAgents) {
 		double result = 0.0;
 		for (Agent agent : connectedAgents) {
-			result += estimatedWorkTimeLeft(agent, others, station);
+			result += estimatedWorkTimeLeft(agent, others, station, 0L);
 		}
 		return result;
 	}
@@ -598,7 +614,7 @@ public class Calculations {
 	private static final Predicate<TimeEdge> incomingDirectedPredicate = edge -> (!edge.incoming || edge.outgoing); //edge.outgoing || !edge.incoming);
 	
 	
-	private static double computeOutgoingConnectedStations(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static double computeOutgoingConnectedStations(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		double result = 0.0;
 		
 		result +=  computeTimeConnectedStations(me, others, getTimeConnectedStations(station, outgoingDirectedPredicate));
@@ -608,7 +624,7 @@ public class Calculations {
 		return result;
 	} 
 	
-	private static double computeIncomingConnectedStations(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static double computeIncomingConnectedStations(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		double result = 0.0;
 		
 		result += computeTimeConnectedStations(me, others, getTimeConnectedStations(station, incomingDirectedPredicate));
@@ -618,7 +634,7 @@ public class Calculations {
 		return result;
 	}
 	
-	private static double computeUndirectedTimeConnectedStations(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static double computeUndirectedTimeConnectedStations(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		double result = 0.0;
 		
 		result += computeTimeConnectedStations(me, others, getTimeConnectedStations(station, undirectedPredicate));
@@ -629,7 +645,7 @@ public class Calculations {
 	}
 
 	
-	private static int pathCost(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static int pathCost(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		// speed is 1 for each scenario
 		// if speed should be considered then we have to divide the path cost with the agent speed
 		return PathCalculation.getPathCost(me.previousTarget, station);
@@ -639,19 +655,19 @@ public class Calculations {
 		return timeAtStation(me, station.type);
 	}
 	
-	private static int timeAtStation(Agent me, StationType stationType) {
+	public static int timeAtStation(Agent me, StationType stationType) {
 		if (me.type.time == -1 && stationType.time == -1) return 1;
 		if (me.type.time == -1) return stationType.time;
 		if (stationType.time == -1) return me.type.time;
 		return Math.min(me.type.time, stationType.time);
 	}
 	
-	private static double totalAgentTime(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static double totalAgentTime(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		return totalTime.get(me.type);
 	}
 	
 	
-	private static int estimatedWorkTimeLeft(Agent me, HashMap<Agent, Object> others, Station station) {
+	private static int estimatedWorkTimeLeft(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		int result = 0;		
 		for (Map.Entry<Station, Integer> entry : me.necessities.entrySet()) {
 			if (entry.getValue() == 0) continue;
@@ -775,7 +791,7 @@ public class Calculations {
 }
 
 interface OwnConsumer {
-	double compute(Agent me, HashMap<Agent, Object> others, Station station);
+	double compute(Agent me, HashMap<Agent, Object> others, Station station, long time);
 }
 
 

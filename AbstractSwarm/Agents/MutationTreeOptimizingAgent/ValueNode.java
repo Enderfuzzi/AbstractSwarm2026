@@ -10,7 +10,7 @@ public class ValueNode implements Node {
 	}
 
 	@Override
-	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station) {
+	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		return value;
 	}
 

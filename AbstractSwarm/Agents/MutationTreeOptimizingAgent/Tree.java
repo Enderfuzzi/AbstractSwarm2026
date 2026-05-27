@@ -14,9 +14,9 @@ public class Tree implements Node{
 	}
 
 	@Override
-	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station) {
+	public double evaluate(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		if (isEmpty()) return 0.0;
-		return root.evaluate(me, others, station);
+		return root.evaluate(me, others, station, time);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class Tree implements Node{
 		return root == null;
 	}
 	
-	
+	@Override
 	public Tree copy() {
 		if (isEmpty()) return new Tree();
 		return new Tree(root.copy());

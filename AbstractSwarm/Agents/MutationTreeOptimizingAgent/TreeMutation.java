@@ -6,8 +6,14 @@ import java.util.Stack;
 
 public class TreeMutation {
 
-	private static Random random = new Random();
-	
+	private static final Random random = new Random();
+
+	/**
+	 * Makes a copy of the given tree and performs a value mutation of a random node.
+	 * The value range is -2.0 to 2.0
+	 * @param tree 	The tree to perform the value mutation on.
+	 * @return		A copy of the original tree mutated.
+	 */
 	public static Tree valueMutation(Tree tree) {
 		Tree copy = tree.copy();
 		if (tree.isEmpty()) return copy;
@@ -24,8 +30,14 @@ public class TreeMutation {
 		
 		return copy;
 	}
-	
-	
+
+
+	/**
+	 * Makes a copy of the given tree and perform a consumer mutation on the copy.
+	 * Nothing happens if there is no consumer node in the tree. Value range is -2.0 to 2.0
+	 * @param tree	The tree to perform the consumer mutation on.
+	 * @return		A copy of the original tree with mutated consumer
+	 */
 	public static Tree consumerWeightMutation(Tree tree) {
 		Tree copy = tree.copy();
 		if (tree.isEmpty()) return copy;
@@ -83,8 +95,13 @@ public class TreeMutation {
 		}
 		return null;
 	}
-	
-	
+
+	/**
+	 * Performs a crossover between two given trees. Copies both trees.
+	 * @param first		The first tree to use
+	 * @param second	The second tree
+	 * @return			The copied first tree with part of the second tree
+	 */
 	public static Tree crossover(Tree first, Tree second) {
 		Tree firstCopy = first.copy();
 		Tree secondCopy = second.copy();
@@ -117,7 +134,13 @@ public class TreeMutation {
 		}
 		return firstCopy;
 	}
-	
+
+	/**
+	 * Changes a random operator in the given tree. Initial tree is copied.
+	 * @param statistic	the mutation statistics for the operators
+	 * @param tree		the tree to perform the operator change
+	 * @return			the mutated tree
+	 */
 	public static Tree mutateOperator(MutationStatistic statistic, Tree tree) {
 		Tree copy = tree.copy();
 		if (copy.isEmpty()) return copy;
@@ -138,8 +161,14 @@ public class TreeMutation {
 		
 		return copy;
 	}
-	
-	
+
+
+	/**
+	 * Performs a large crossover between two lists of trees
+	 * @param first		The first list of trees
+	 * @param second	The second list of trees
+	 * @return			A copied list consisting of parts of both lists
+	 */
 	public static List<Tree> largeCrossover(List<Tree> first, List<Tree> second) {
 		if (first.isEmpty()) return new ArrayList<>(second);
 		if (second.isEmpty()) return new ArrayList<>(first);
