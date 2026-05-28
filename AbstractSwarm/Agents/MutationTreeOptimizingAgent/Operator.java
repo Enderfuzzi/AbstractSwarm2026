@@ -1,4 +1,9 @@
-
+/**
+ * Possible operations in a tree.
+ *
+ * @author Ole Brenner
+ * @version 27.05.2026
+ */
 public enum Operator {
 	ADDITION("+"),
 	SUBTRACTION("-"),
@@ -10,7 +15,7 @@ public enum Operator {
 	
 	private final String representation;
 	
-	private Operator(String representation) {
+	 Operator(String representation) {
 		this.representation = representation;
 	}
 	
@@ -19,7 +24,7 @@ public enum Operator {
 		if (this == SUBTRACTION) return first - second;
 		if (this == MULTIPLICATION) return first * second;
 		if (this == DIVISION) {
-			if (second == 0.0) return first / 1.0;
+			if (second == 0.0) return first;
 			return first / second;
 		}
 		if (this == MODULO) {

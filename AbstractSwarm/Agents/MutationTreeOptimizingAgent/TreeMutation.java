@@ -4,6 +4,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * Provides methods to perform tree manipulations.
+ *
+ * @author Ole Brenner
+ * @version 27.05.2026
+ */
 public class TreeMutation {
 
 	private static final Random random = new Random();

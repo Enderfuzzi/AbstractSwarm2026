@@ -155,10 +155,19 @@ public class Calculations {
 			// value 0.4
 			// operator 0.6
 
+
+			// mutation 0.5
+			// crossover 0.4
+			// large crossover 0.4
+
+			// value 0.4
+			// operator 0.6
+
+
 			// TODO more aggressive changes
 
 			mutationProbability.add("mutation", 0.5);
-			mutationProbability.add("crossover", 0.4);
+			mutationProbability.add("crossover", 0.6);
 			mutationProbability.add("largeCrossover", 0.4);
 			
 			basicMutationProbability.add("value", 0.4);
@@ -187,7 +196,7 @@ public class Calculations {
 			
 			if (currentFitness > 0.0) {
 				treeFitness.add(new FitnessPair(currentFitness, currentTrees));
-				
+
 				if (treeFitness.size() > 20) {
 					
 					FitnessPair toRemove = null;
@@ -348,18 +357,12 @@ public class Calculations {
 		if (!currentTrees.isEmpty()) {
 			evaluation = currentTrees.get(currentTrees.size() - 1);
 		} 
-		
+
 		if (timeStatistic.numberOfRuns >= 30) {
 			generateTree = false;
 		}
 		
 		firstRun = false;
-
-
-		if (TEXT_OUTPUT) System.out.println("-----------------------------");
-		if (TEXT_OUTPUT) System.out.println("Undirected result: " + TimePlanCalculation.checkUndirectedEdge(station));
-		if (TEXT_OUTPUT) System.out.println("Directed result: " + TimePlanCalculation.checkDirectedEdge(station, others));
-
 
 		// Do not choose a station which is not reachable
 		if (!PathCalculation.reachable(me.previousTarget, station)) {
@@ -499,13 +502,6 @@ public class Calculations {
 	// TODO REPLACE THIS WITH MY PLACE calculation and test
 
 	private static double maxDistribution(Agent me, HashMap<Agent, Object> others, Station station, long time) {
-		/*
-		if (stationSpace(station.type) != Integer.MAX_VALUE) {
-			return -1.0 * stationTargeted(me, others, station) + 1.0 * stationSpace(station.type);
-		}
-		return (double) 2 / (stationTargeted(me,others,station) + 1);
-		 */
-
 		return 1.0 / (SpaceCalculation.nextFreeSlot(me, station, time, PathCalculation.getPathCost(me.previousTarget, station) + time) + 1);
 	}
 
@@ -567,7 +563,7 @@ public class Calculations {
 	private static double computeTimeConnectedStations(Agent me, HashMap<Agent, Object> others, List<ResultPair> connectedStations) {
 		double result = 0.0;
 		for (ResultPair pair : connectedStations) {
-			result += timeAtStation(me, others, pair.station);
+			result += timeAtStation(me, others, pair.station) * 1.0;
 			result += pair.cost;
 			result += stationTargeted(others, pair.station) * 3;
 		}
@@ -591,7 +587,7 @@ public class Calculations {
 	private static double computeTimeConnectedAgents(Agent me, HashMap<Agent, Object> others, Station station, List<Agent> connectedAgents) {
 		double result = 0.0;
 		for (Agent agent : connectedAgents) {
-			result += estimatedWorkTimeLeft(agent, others, station, 0L);
+			result += estimatedWorkTimeLeft(agent, others, station, 0L) * 1.0;
 		}
 		return result;
 	}

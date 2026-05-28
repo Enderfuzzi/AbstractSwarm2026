@@ -1,4 +1,9 @@
-
+/**
+ * Stores the current time statistics and current run statistics.
+ *
+ * @author Ole Brenner
+ * @version 27.05.2026
+ */
 public class TimeStatistics {
 
 	

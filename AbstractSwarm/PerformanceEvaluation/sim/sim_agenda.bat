@@ -391,7 +391,7 @@ cd ..\..\.
 
 echo #   Starting PerformanceEvaluation.jar
 
-Start javaw.exe -Xms4G -jar ./PerformanceEvaluation.jar %dt%
+Start javaw.exe -jar ./PerformanceEvaluation.jar %dt%
 
 echo #   Done.
 echo.
@@ -448,7 +448,7 @@ echo #   Running evaluation.
 
 cd ..\.
 
-Start /w javaw.exe -jar .\PerformanceEvaluation.jar final %dt%
+Start /w javaw.exe -Xms4G -jar .\PerformanceEvaluation.jar final %dt%
 
 cd .\sim\.
 
