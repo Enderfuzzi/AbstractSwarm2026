@@ -145,30 +145,10 @@ public class Calculations {
 			if (undirectedTimeEdges) {
 				baseProbability.add("undirectedTime");
 			}
-			
-			//TODO Trade less mutation rate into more crossover rate
 
-			// mutation 0.6
-			// crossover 0.5
-			// large crossover 0.3
-
-			// value 0.4
-			// operator 0.6
-
-
-			// mutation 0.5
-			// crossover 0.4
-			// large crossover 0.4
-
-			// value 0.4
-			// operator 0.6
-
-
-			// TODO more aggressive changes
-
-			mutationProbability.add("mutation", 0.5);
-			mutationProbability.add("crossover", 0.6);
-			mutationProbability.add("largeCrossover", 0.4);
+			mutationProbability.add("mutation", 0.6);
+			mutationProbability.add("crossover", 0.5);
+			mutationProbability.add("largeCrossover", 0.3);
 			
 			basicMutationProbability.add("value", 0.4);
 			basicMutationProbability.add("operator", 0.6);
@@ -498,8 +478,6 @@ public class Calculations {
 		result -= timeAtStation(me, station.type) * 1.0;
 		return result;
 	}
-
-	// TODO REPLACE THIS WITH MY PLACE calculation and test
 
 	private static double maxDistribution(Agent me, HashMap<Agent, Object> others, Station station, long time) {
 		return 1.0 / (SpaceCalculation.nextFreeSlot(me, station, time, PathCalculation.getPathCost(me.previousTarget, station) + time) + 1);
